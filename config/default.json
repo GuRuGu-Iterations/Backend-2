@@ -1,0 +1,4 @@
+{
+  "port": 8000,
+  "mongodb": "mongodb+srv://GuRuGu:i44iYtewBM21noYb@cluster0-z8edg.mongodb.net/backend_2?retryWrites=true&w=majority"
+}
