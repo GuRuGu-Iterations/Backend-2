@@ -17,8 +17,8 @@ mongoose.connection.on(
 mongoose.connection.once("open", () => console.log("Connected to database"));
 
 // Initialize middleware
-app.use(morgan("dev"));
-app.use(express.json());
+app.use(morgan("dev")); // logging
+app.use(express.json()); // parse form data --- do I need it if I send only files ???
 
 // Routes
 app.use("/api/pic", require("./routes"));
