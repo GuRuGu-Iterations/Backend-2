@@ -6,8 +6,13 @@ module.exports = {
   // @access  Public
   save: async (req, res, next) => {
     try {
-      await Picture.create({ path: req.file.path });
-      res.status(201).json({ msg: "Saved a picture" });
+      const picture = new Picture({ path: req.file.path });
+      await picture.save();
+
+      res.status(201).json({
+        msg: "Saved a picture",
+        pictureId: picture._id
+      });
     } catch (err) {
       next(err);
     }
@@ -15,9 +20,14 @@ module.exports = {
   // @route   GET api/pic/:id
   // @desc    Get a path to a saved picture
   // @access  Public
-  get: async (req, res) => {
-    console.log(req.params.id);
-    console.log("Get a path to a picture on server");
-    res.status(200).json({ msg: "Here is a path to your picture" });
+  get: async (req, res, next) => {
+    const pictureId = req.params.id;
+
+    try {
+      const data = await Picture.findById(pictureId);
+      res.status(200).json({ msg: "Picture found!", picture: data });
+    } catch (err) {
+      next(err);
+    }
   }
 };
