@@ -1,11 +1,17 @@
+const Picture = require("../models/Picture");
+
 module.exports = {
   // @route   POST api/pic
   // @desc    Save a picture to server
   // @access  Public
-  save: async (req, res) => {
-    console.log(req.file);
-    console.log("Posted a picture");
-    res.status(201).json({ msg: "Saved a picture" });
+  save: async (req, res, next) => {
+    try {
+      await Picture.create({ path: req.file.path });
+      res.status(201).json({ msg: "Saved a picture" });
+    } catch (err) {
+      console.error("Error:", err);
+      next(err);
+    }
   },
   // @route   GET api/pic/:id
   // @desc    Get a path to a saved picture
