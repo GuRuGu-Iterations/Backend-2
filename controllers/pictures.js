@@ -9,7 +9,6 @@ module.exports = {
       await Picture.create({ path: req.file.path });
       res.status(201).json({ msg: "Saved a picture" });
     } catch (err) {
-      console.error("Error:", err);
       next(err);
     }
   },
